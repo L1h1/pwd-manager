@@ -1,0 +1,12 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: sh fastapi-entrypoint.sh
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/backend
+
