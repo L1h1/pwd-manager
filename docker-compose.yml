@@ -5,8 +5,10 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     command: sh fastapi-entrypoint.sh
+    env_file:
+      - backend/.env
     ports:
-      - "8000:8000"
+      - "8080:8080"
     volumes:
       - ./backend:/backend
 
