@@ -1,8 +1,9 @@
 from azure.cosmos import PartitionKey
 from azure.cosmos.aio import ContainerProxy, CosmosClient, DatabaseProxy
 from azure.identity.aio import DefaultAzureCredential
-from src.core.singleton_metaclass import SingletonMeta
 from src.core.env import settings
+from src.core.singleton_metaclass import SingletonMeta
+
 
 class CosmosConnectionManager(metaclass=SingletonMeta):
     """

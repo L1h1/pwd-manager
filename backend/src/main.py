@@ -1,7 +1,8 @@
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
-from src.services.cosmos_db.manager import connection_manager
 from src.api import api_router
+from src.services.cosmos_db.manager import connection_manager
 
 
 @asynccontextmanager
@@ -15,5 +16,5 @@ app = FastAPI(lifespan=lifespan)
 
 app.include_router(
     router=api_router,
-    prefix='/api',
+    prefix="/api",
 )
