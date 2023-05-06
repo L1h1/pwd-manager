@@ -17,6 +17,7 @@ djangorestframework-simplejwt = "^5.2.2"
 django = "3.0"
 djangorestframework = "3.10"
 djangorestframework-jwt = "^1.11.0"
+cryptography = "^40.0.2"
 
 
 

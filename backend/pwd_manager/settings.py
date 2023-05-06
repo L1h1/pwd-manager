@@ -7,6 +7,7 @@ config = dotenv_values(".env")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config.get("SECRET_KEY")
+ENCRYPT_KEY = config.get("ENCRYPT_KEY")
 
 DEBUG = int(config.get("DEBUG"))
 
