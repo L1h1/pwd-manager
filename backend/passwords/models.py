@@ -3,7 +3,7 @@ from django.db import models
 
 
 class PasswordCategory(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

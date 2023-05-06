@@ -17,7 +17,10 @@ MY_APPS = (
     "users",
 )
 
-THIRD_PARTY = ()
+THIRD_PARTY = (
+    "rest_framework",
+    "rest_framework.authtoken",
+)
 
 INSTALLED_APPS = (
     "django.contrib.admin",
@@ -63,7 +66,7 @@ WSGI_APPLICATION = "pwd_manager.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": str(BASE_DIR / "db.sqlite3"),
     }
 }
 
@@ -82,6 +85,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {"DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework.authentication.SessionAuthentication",)}
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
