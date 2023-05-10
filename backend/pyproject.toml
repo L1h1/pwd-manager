@@ -11,9 +11,10 @@ pydantic = "^1.10.7"
 aiohttp = "^3.8.4"
 pre-commit = "^3.2.2"
 python-dotenv = "^1.0.0"
-django = "3.0"
-djangorestframework = "3.10"
 cryptography = "^40.0.2"
+django-cors-headers = "^3.14.0"
+django = "^4.2.1"
+djangorestframework = "^3.14.0"
 
 
 
