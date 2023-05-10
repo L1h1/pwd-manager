@@ -2,7 +2,7 @@ from pathlib import Path
 
 from dotenv import dotenv_values
 
-config = dotenv_values(".env")
+config = dotenv_values(".env.sample")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
