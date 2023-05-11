@@ -22,8 +22,7 @@ class Password(models.Model):
 
     category = models.ForeignKey(
         PasswordCategory,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         related_name="passwords",
     )
 
