@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from users.serializers import LoginSerializer
+from users.serializers import LoginSerializer, RegisterSerializer
 
 
 class LoginAPIView(APIView):
@@ -32,3 +32,11 @@ class LoginAPIView(APIView):
             {"message": "You've provided invalid credentials"},
             status=status.HTTP_400_BAD_REQUEST,
         )
+
+
+class RegisterAPIView(APIView):
+    def post(self, request, **kwargs):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        User.objects.create_user(**serializer.validated_data)
+        return Response(status=status.HTTP_201_CREATED)
