@@ -13,7 +13,14 @@ class LoginAPIView(APIView):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        user = User.objects.get(username=serializer.validated_data["username"])
+        try:
+            user = User.objects.get(username=serializer.validated_data["username"])
+        except:
+            return Response(
+                {'message':"user doesn't exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
 
         if check_password(serializer.validated_data["password"], user.password):
             tokens = Token.objects.filter(user=user)
@@ -38,5 +45,12 @@ class RegisterAPIView(APIView):
     def post(self, request, **kwargs):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        User.objects.create_user(**serializer.validated_data)
+        try:
+            User.objects.create_user(**serializer.validated_data)
+        except:
+            return Response(
+                {'message':'This user already exists'},
+                status=status.HTTP_409_CONFLICT
+            )
+        
         return Response(status=status.HTTP_201_CREATED)
