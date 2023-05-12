@@ -16,10 +16,8 @@ class CategoriesViewSetTest(APITestCase):
         )                                                                             
         token, created = Token.objects.get_or_create(user=self.user)                
         self.client = Client(HTTP_AUTHORIZATION='Token ' + token.key)
-        self.first=PasswordCategory(name='first',user=self.user)
-        self.second=PasswordCategory(name='second',user=self.user)
-        self.first.save()
-        self.second.save()
+        self.first=PasswordCategory.objects.create(name='first',user=self.user)
+        self.second=PasswordCategory.objects.create(name='second',user=self.user)
 
     def tearDown(self):
         pass
@@ -87,26 +85,48 @@ class PasswordViewSetTest(APITestCase):
         token, created = Token.objects.get_or_create(user=self.user)   
         self.client = Client(HTTP_AUTHORIZATION='Token ' + token.key)  
 
-        self.first_cat=PasswordCategory(name='first',user=self.user)
-        self.second_cat=PasswordCategory(name='second',user=self.user)
-        self.first_cat.save()
-        self.second_cat.save()
+        self.first_cat=PasswordCategory.objects.create(name='first',user=self.user)
+        self.second_cat=PasswordCategory.objects.create(name='second',user=self.user)
 
-        self.first_pwd=Password(login='test',password='test',category=self.first_cat)
-        self.second_pwd=Password(login='test',password='test',category=self.second_cat)
-        self.first_pwd.save()
-        self.second_pwd.save()
+        response=self.client.post('/api/passwords/',{'name':'somedecentname1','login':'firstLogin','password':'samepassword','comment':'string','category':1})
+        response=self.client.post('/api/passwords/',{'name':'somedecentname2','login':'secondLogin','password':'samepassword','comment':'string','category':2})
+        #self.first_pwd=Password.objects.create(name='name1',login='test',password='test',category=self.first_cat,comment='string')
+        #self.second_pwd=Password.objects.create(name='name2',login='test',password='test',category=self.second_cat,comment='string')
+
 
 
     def tearDown(self):
         pass
 
-    def test_get_passwords(self):
+    def test_get_all_passwords(self):
         response=self.client.get('/api/passwords/')
-        print(response.data)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
 
-    def test_add_password(self):
-        response=self.client.get('/api/passwords/')
-        print(response.data)
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
+    def test_pwd_creation_missing(self):
+        response=self.client.post('/api/passwords/',{'login':'somelogin','password':'somepwd','comment':'string','category':1})
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+
+    def test_create_pwd(self):
+        response=self.client.post('/api/passwords/',{'name':'somedecentname3','login':'firstLogin','password':'samepassword','comment':'string','category':1})
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+
+    def test_get_existing(self):
+        response=self.client.get('/api/passwords/1/')
+        self.assertEqual(response.data['name'],'somedecentname1')
+
+    def test_get_non_existing(self):
+        response=self.client.get('/api/passwords/-1/')
+        self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+
+    def test_patch_non_existing(self):
+        response=self.client.patch('/api/passwords/-1/')
+        self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+
+
+    def test_delete_non_existing(self):
+        response=self.client.delete('/api/passwords/-1/')
+        self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+
+    def test_delete_existing(self):
+        response=self.client.delete('/api/passwords/1/')
+        self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
