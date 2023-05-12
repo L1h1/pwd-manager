@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
+
 
 from users.serializers import LoginSerializer, RegisterSerializer
 
@@ -13,14 +15,7 @@ class LoginAPIView(APIView):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        try:
-            user = User.objects.get(username=serializer.validated_data["username"])
-        except:
-            return Response(
-                {'message':"user doesn't exist"},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
+        user = get_object_or_404(User,username=serializer.validated_data["username"])
 
         if check_password(serializer.validated_data["password"], user.password):
             tokens = Token.objects.filter(user=user)
