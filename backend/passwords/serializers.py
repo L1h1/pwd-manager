@@ -32,4 +32,4 @@ class PasswordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Password
-        fields = ("login", "password", "comment", "category")
+        fields = ("name", "login", "password", "comment", "category")
