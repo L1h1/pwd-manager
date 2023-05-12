@@ -13,7 +13,7 @@ class MultiPermissionMixin:
 
     # errors
     DEFAULT_PERMISSION_CLASSES_ARE_NOT_SPECIFIED_ERROR = (
-        f"You have to specify {default_permission_classes_key} setting in permission_action_classes"
+        f"You have to specify {default_permission_classes_key}" "setting in permission_action_classes"
     )
 
     PERMISSION_ACTION_CLASSES_ATTRIBUTE_IS_NOT_SPECIFIED = (
@@ -45,7 +45,7 @@ class MultiSerializerMixin:
 
     # errors
     DEFAULT_SERIALIZER_IS_NOT_SPECIFIED_ERROR = (
-        f"You have to specify {default_serializer_key} setting in serializer_action_classes"
+        f"You have to specify {default_serializer_key}" "setting in serializer_action_classes"
     )
 
     SERIALIZER_ACTION_CLASSES_ATTRIBUTE_IS_NOT_SPECIFIED = (
