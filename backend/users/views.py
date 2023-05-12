@@ -49,4 +49,7 @@ class RegisterAPIView(APIView):
                 status=status.HTTP_409_CONFLICT,
             )
         else:
-            return Response({"message": self.EMAIL_CONSTRAINT_FAILED_MESSAGE}, status=status.HTTP_409_CONFLICT)
+            return Response(
+                {"message": self.EMAIL_CONSTRAINT_FAILED_MESSAGE},
+                status=status.HTTP_409_CONFLICT,
+            )
