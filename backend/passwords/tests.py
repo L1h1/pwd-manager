@@ -130,3 +130,4 @@ class PasswordViewSetTest(APITestCase):
     def test_delete_existing(self):
         response=self.client.delete('/api/passwords/1/')
         self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
+        
