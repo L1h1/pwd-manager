@@ -1,12 +1,9 @@
-import {Context} from '../index';
-import { useContext} from "react";
+import AppMain from "../components/app-main";
 import {observer} from "mobx-react-lite";
 
 const Main = observer(() => {
   return (
-    <div>
-      MAIN
-    </div>
+    <AppMain/>
   );
 })
 

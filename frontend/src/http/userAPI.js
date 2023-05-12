@@ -10,6 +10,10 @@ export const login = async (username, password) => {
   return data;
 }
 
+export const categories = async () => {
+  const response = await $host.get('api/categories');
+}
+
 export const check = async () => {
   const response = await $authHost.get('register');
   return response;
