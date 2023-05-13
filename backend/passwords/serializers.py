@@ -14,6 +14,15 @@ class PasswordCategorySerializer(serializers.ModelSerializer):
         fields = ("id", "name", "user")
 
 
+class PasswordCategoryUpdateSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = PasswordCategory
+        fields = ("id", "name", "user")
+
+
 class EncryptedCharField(serializers.CharField):
     def to_internal_value(self, data):
         fernet = Fernet(bytes(settings.ENCRYPT_KEY.encode()))
@@ -28,6 +37,15 @@ class EncryptedCharField(serializers.CharField):
 
 
 class PasswordSerializer(serializers.ModelSerializer):
+    password = EncryptedCharField()
+
+    class Meta:
+        model = Password
+        fields = ("id", "name", "login", "password", "comment", "category")
+
+
+class PasswordUpdateSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     password = EncryptedCharField()
 
     class Meta:
